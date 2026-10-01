@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Dashboard')}"></head>
+<body>
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div th:replace="~{fragments :: sidebar('dashboard')}"></div>
+            
+            <main class="col-md-9 col-lg-10 main-content">
+                <div th:replace="~{fragments :: topnav}"></div>
+                
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <div class="banner-text">
+                        <h2>Welcome Back, Admin!</h2>
+                        <p>Manage books, members and keep your library organized.</p>
+                    </div>
+                    <div class="banner-illustration">
+                        📚🌿
+                    </div>
+                </div>
+                
+                <!-- Summary Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="summary-card">
+                            <div class="card-icon icon-blue">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="summary-title">Total Books</div>
+                            <div class="summary-value" th:text="${stats.totalBooks}">12</div>
+                            <p class="summary-subtitle">Books in Library</p>
+                            <div class="card-arrow arrow-blue"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-card">
+                            <div class="card-icon icon-green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="summary-title">Available Books</div>
+                            <div class="summary-value" th:text="${stats.availableBooks}">11</div>
+                            <p class="summary-subtitle">Ready for Issue</p>
+                            <div class="card-arrow arrow-green"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-card">
+                            <div class="card-icon icon-red">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <div class="summary-title">Issued Books</div>
+                            <div class="summary-value" th:text="${stats.issuedBooks}">1</div>
+                            <p class="summary-subtitle">Currently Out</p>
+                            <div class="card-arrow arrow-red"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="summary-card">
+                            <div class="card-icon icon-yellow">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="summary-title">Total Members</div>
+                            <div class="summary-value" th:text="${stats.totalMembers}">2</div>
+                            <p class="summary-subtitle">Registered Members</p>
+                            <div class="card-arrow arrow-yellow"><i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="row g-4">
+                    <!-- Quick Actions -->
+                    <div class="col-md-8">
+                        <div class="quick-actions-container">
+                            <h4 class="quick-actions-title">Quick Actions</h4>
+                            <p class="quick-actions-subtitle">Access commonly used features</p>
+                            
+                            <div class="row g-3">
+                                <div class="col">
+                                    <a th:href="@{/books/add}" class="action-card bg-light-blue">
+                                        <i class="fas fa-book-medical main-icon"></i>
+                                        <span>Add Book</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a th:href="@{/members/add}" class="action-card bg-light-green">
+                                        <i class="fas fa-user-plus main-icon"></i>
+                                        <span>Add Member</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a th:href="@{/issue}" class="action-card bg-light-orange">
+                                        <i class="fas fa-exchange-alt main-icon"></i>
+                                        <span>Issue Book</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a th:href="@{/records}" class="action-card bg-light-purple">
+                                        <i class="fas fa-undo main-icon"></i>
+                                        <span>Return Book</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a th:href="@{/records}" class="action-card bg-light-teal">
+                                        <i class="fas fa-file-invoice main-icon"></i>
+                                        <span>View Records</span>
+                                        <i class="fas fa-arrow-right arrow-icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quote Card -->
+                    <div class="col-md-4">
+                        <div class="quote-card">
+                            <i class="fas fa-book-open quote-icon"></i>
+                            <div class="quote-text">
+                                "A library is not just a collection of books, but a collection of dreams."
+                            </div>
+                            <div class="quote-author">- Unknown</div>
+                            <i class="fas fa-book-reader quote-decoration"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Issue / Return Records')}"></head>
+<body>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div th:replace="~{fragments :: sidebar('history')}"></div>
+            
+            <main class="col-md-9 col-lg-10 main-content">
+                <div th:replace="~{fragments :: topnav}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Issue & Return Records</h2>
+                    <a th:href="@{/issue}" class="btn btn-primary"><i class="fas fa-hand-holding"></i> Issue New Book</a>
+                </div>
+
+                <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${message}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <div class="card mb-4 border-0 shadow-sm">
+                    <div class="card-body">
+                        <form th:action="@{/records}" method="get" class="d-flex">
+                            <input type="text" name="q" class="form-control me-2" placeholder="Search by book title, member name, status..." th:value="${query}">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                            <a th:href="@{/records}" class="btn btn-outline-secondary ms-2" th:if="${query != null}">Clear</a>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Book Title</th>
+                                <th>Member Name</th>
+                                <th>Issue Date</th>
+                                <th>Return Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="record : ${records}">
+                                <td th:text="${record.id}"></td>
+                                <td th:text="${record.bookTitle}" class="fw-bold"></td>
+                                <td th:text="${record.memberName}"></td>
+                                <td th:text="${record.issueDate}"></td>
+                                <td th:text="${record.returnDate}"></td>
+                                <td>
+                                    <span class="badge rounded-pill" th:classappend="${record.status == 'ISSUED'} ? 'bg-warning text-dark' : 'bg-success'"
+                                          th:text="${record.status}"></span>
+                                </td>
+                                <td>
+                                    <a th:if="${record.status == 'ISSUED'}" th:href="@{/return/{id}(id=${record.id})}" 
+                                       class="btn btn-sm btn-outline-success" onclick="return confirm('Confirm book return?');">
+                                        <i class="fas fa-undo"></i> Return
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr th:if="${records.empty}">
+                                <td colspan="7" class="text-center">No records found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

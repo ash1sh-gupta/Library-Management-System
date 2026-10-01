@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${book.id == null ? 'Add Book' : 'Edit Book'})}"></head>
+<body>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div th:replace="~{fragments :: sidebar('books')}"></div>
+            
+            <main class="col-md-9 col-lg-10 main-content">
+                <div th:replace="~{fragments :: topnav}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 th:text="${book.id == null ? 'Add New Book' : 'Edit Book'}">Book</h2>
+                    <a th:href="@{/books}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Back to List</a>
+                </div>
+
+                <div class="card border-0 shadow-sm" style="max-width: 600px;">
+                    <div class="card-body p-4">
+                        <form th:action="@{/books/save}" th:object="${book}" method="post">
+                            <input type="hidden" th:field="*{id}" />
+                            
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Book Title <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="author" th:field="*{author}" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="isbn" class="form-label">ISBN <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="isbn" th:field="*{isbn}" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="totalQuantity" class="form-label">Total Quantity <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="totalQuantity" th:field="*{totalQuantity}" min="1" required>
+                                <div class="form-text text-muted" th:if="${book.id != null}">
+                                    Current Available: <span th:text="${book.availableQuantity}"></span>. Changing total quantity will adjust available quantity accordingly.
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary px-4"><i class="fas fa-save"></i> Save Book</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

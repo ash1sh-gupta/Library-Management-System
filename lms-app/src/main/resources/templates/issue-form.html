@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Issue Book')}"></head>
+<body>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div th:replace="~{fragments :: sidebar('records')}"></div>
+            
+            <main class="col-md-9 col-lg-10 main-content">
+                <div th:replace="~{fragments :: topnav}"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Issue a Book</h2>
+                    <a th:href="@{/records}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Back to Records</a>
+                </div>
+
+                <div class="card border-0 shadow-sm" style="max-width: 600px;">
+                    <div class="card-body p-4">
+                        <form th:action="@{/issue}" method="post">
+                            <div class="mb-4">
+                                <label for="memberId" class="form-label">Select Member <span class="text-danger">*</span></label>
+                                <select class="form-select" id="memberId" name="memberId" required>
+                                    <option value="">-- Choose Member --</option>
+                                    <option th:each="member : ${members}" 
+                                            th:value="${member.id}" 
+                                            th:text="${member.name} + ' (' + ${member.email} + ')'"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="bookId" class="form-label">Select Book <span class="text-danger">*</span></label>
+                                <select class="form-select" id="bookId" name="bookId" required>
+                                    <option value="">-- Choose Book --</option>
+                                    <option th:each="book : ${books}" 
+                                            th:value="${book.id}" 
+                                            th:text="${book.title} + ' by ' + ${book.author} + ' (' + ${book.availableQuantity} + ' available)'"
+                                            th:disabled="${book.availableQuantity <= 0}"></option>
+                                </select>
+                                <div class="form-text text-muted">Only books with available copies can be selected.</div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary px-4"><i class="fas fa-check"></i> Issue Book</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>

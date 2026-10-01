@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' - Library Management System'">LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:fragment="sidebar(activeMenu)" class="col-md-3 col-lg-2 sidebar px-0">
+        <div class="brand">
+            <i class="fas fa-book-open brand-icon"></i>
+            <div class="brand-text">
+                <h4>LMS</h4>
+                <p>Library Management System</p>
+            </div>
+        </div>
+        
+        <div class="px-3">
+            <div class="nav-item">
+                <a th:href="@{/}" class="nav-link" th:classappend="${activeMenu == 'dashboard'} ? 'active' : ''">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+            </div>
+            <div class="nav-item">
+                <a th:href="@{/books}" class="nav-link" th:classappend="${activeMenu == 'books'} ? 'active' : ''">
+                    <i class="fas fa-book"></i> Books
+                </a>
+            </div>
+            <div class="nav-item">
+                <a th:href="@{/members}" class="nav-link" th:classappend="${activeMenu == 'members'} ? 'active' : ''">
+                    <i class="fas fa-user-friends"></i> Members
+                </a>
+            </div>
+            <div class="nav-item">
+                <a th:href="@{/records}" class="nav-link" th:classappend="${activeMenu == 'records'} ? 'active' : ''">
+                    <i class="fas fa-exchange-alt"></i> Issue / Return
+                </a>
+            </div>
+            <div class="nav-item mt-4">
+                <a th:href="@{/records}" class="nav-link" th:classappend="${activeMenu == 'history'} ? 'active' : ''">
+                    <i class="fas fa-file-alt"></i> Records
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-quote">
+            <i class="fas fa-book-reader"></i>
+            <div>
+                <div style="font-weight: 600; color: #cbd5e1;">Better Readers</div>
+                <div>Build a Brighter Future</div>
+                <div style="height: 2px; width: 30px; background-color: #3b82f6; margin-top: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="topnav">
+        <div class="top-nav">
+            <form th:action="@{/search}" method="get" class="search-bar mb-0">
+                <i class="fas fa-search"></i>
+                <input type="text" name="q" placeholder="Search books, members, etc..." required>
+            </form>
+            <div class="user-profile">
+                <div class="notification">
+                    <i class="far fa-bell"></i>
+                </div>
+                <div style="width: 1px; height: 24px; background-color: #e2e8f0; margin: 0 8px;"></div>
+                <div class="profile-info dropdown">
+                    <div class="avatar dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">A</div>
+                    <div class="profile-name dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">Admin</div>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" th:href="@{/logout}"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:fragment="scripts">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+</body>
+</html>
